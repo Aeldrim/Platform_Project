@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Parallaxing : MonoBehaviour {
 
-	public Transform[] backgrounds;		//Array de backgrounds y foreground para Parallaxing
 	private float [] parallaxScales; 	//Proporcion del movimiento de la camara para mover los backgrounds
-	public float smoothing = 1f; 			//Que tanto smooth tendra el parallax
-
-	private Transform cam; 						//Referencia al transform de la camara
+	private Transform cam; 				//Referencia al transform de la camara
 	private Vector3 previousCamPos;		//Almacena la posicion de la camara en el anterior frame
+
+	[Header("Parallax Elements")]
+	public Transform[] backgrounds;		//Array de backgrounds y foreground para Parallaxing
+	public float smoothing = 1f; 		//Que tanto smooth tendra el parallax
 
 	void Awake (){
 		cam = Camera.main.transform;

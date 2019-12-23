@@ -22,6 +22,7 @@ public class CharacterMovement : MonoBehaviour
 	public float startTimeBtwAttacks;		//Tiempo minimo entre ataques
 	public float attackRange;				//Rango del ataque
 	public Transform attackPosition;		//Posicion inicial del ataque
+	public int attackDamage = 2;			//Daño de ataque
 
 
     [Header("Environment Check Properties")]
@@ -104,7 +105,12 @@ public class CharacterMovement : MonoBehaviour
 		{
 			if(input.attackPressed)
 			{	
-				Collider2D[] objectsToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, whatIsAttackable); //
+				Collider2D[] objectsToDamage = Physics2D.OverlapCircleAll(attackPosition.position, attackRange, whatIsAttackable); //Detecta enemigos en rango de ataque
+				
+				foreach (Collider2D enemy in objectsToDamage){
+					enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+				}
+				
 				attackTime = startTimeBtwAttacks;
 			}
 		}
@@ -193,5 +199,12 @@ public class CharacterMovement : MonoBehaviour
 
 		// Devuelve los resultados del Raycast
 		return hit;
+	}
+
+	void OnDrawGizmosSelected(){
+		if (attackPosition == null)
+			return;
+			
+		Gizmos.DrawWireSphere(attackPosition.position,attackRange);
 	}
 }

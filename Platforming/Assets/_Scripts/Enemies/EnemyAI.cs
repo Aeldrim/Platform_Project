@@ -5,9 +5,8 @@ using Pathfinding;      //Utilizar el codigo de pathfinding
 
 public class EnemyAI : MonoBehaviour
 {
-
+    [Header("Enemies AI Properties")]
     public Transform target;                        //Quien es el objetivo
-
     public float speed =  200f;                     //Velocidad de movimiento
     public float nextWaypointDistance = 3f;         //Que tan cerca se debe estar a un Waypoint hasta que se mueva al proximo
     public Transform enemyGFX;
