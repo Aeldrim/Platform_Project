@@ -16,6 +16,7 @@ public class CharacterHealth : MonoBehaviour
 
     bool isAlive;                           //Almacena el estado del jugador
     int trapLayer;                          //La capa en la que estan las trampas //Es un int, para que sea mas efectiva en mobiles
+    int enemyLayer;                         //La capa en la que esta el enemigo
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class CharacterHealth : MonoBehaviour
 		health = maxHealth;     //Settea la Vida
         isAlive = true;         
         trapLayer = LayerMask.NameToLayer ("Traps");
+        enemyLayer = LayerMask.NameToLayer ("Enemy");
 
     }
 
@@ -55,6 +57,19 @@ public class CharacterHealth : MonoBehaviour
         
         gameObject.SetActive(false);
         GameManager.PlayerDied();
+    }
 
+    void OnCollisionEnter2D (Collision2D o){
+        if(o.gameObject.layer != enemyLayer || !isAlive)
+            return;
+
+        Debug.Log("Colisiono");
+        
+        health --;
+        if(health <= 0){
+            isAlive = false;
+            gameObject.SetActive(false);
+            GameManager.PlayerDied();
+        }
     }
 }
